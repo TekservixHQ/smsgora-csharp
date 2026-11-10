@@ -1,0 +1,37 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFrameworks>netstandard2.0;net8.0</TargetFrameworks>
+    <LangVersion>latest</LangVersion>
+    <Nullable>enable</Nullable>
+    <RootNamespace>Tekservix.SmsGora</RootNamespace>
+    <AssemblyName>SmsGora</AssemblyName>
+    <GenerateDocumentationFile>true</GenerateDocumentationFile>
+
+    <PackageId>SmsGora</PackageId>
+    <Version>1.0.0</Version>
+    <Authors>Tekservix</Authors>
+    <Company>Tekservix</Company>
+    <Product>SMS Gora SMS Gateway</Product>
+    <Title>SMS Gora SMS Gateway client</Title>
+    <Description>Official .NET client for the SMS Gora SMS Gateway: send and receive SMS through your own Android phones, with delivery reports and signed webhooks.</Description>
+    <PackageTags>sms;sms-gateway;sms-api;bulk-sms;send-sms;android-sms-gateway;otp;textbee;smsgora;tekservix</PackageTags>
+    <PackageProjectUrl>https://tekservix.com/smsgora/</PackageProjectUrl>
+    <RepositoryUrl>https://github.com/TekservixHQ/smsgora-csharp</RepositoryUrl>
+    <RepositoryType>git</RepositoryType>
+    <PackageLicenseExpression>MIT</PackageLicenseExpression>
+    <PackageReadmeFile>README.md</PackageReadmeFile>
+    <PackageIcon>icon.png</PackageIcon>
+    <Copyright>Copyright (c) 2026 Tekservix</Copyright>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <None Include="..\README.md" Pack="true" PackagePath="\" />
+    <None Include="icon.png" Pack="true" PackagePath="\" />
+  </ItemGroup>
+
+  <ItemGroup Condition="'$(TargetFramework)' == 'netstandard2.0'">
+    <PackageReference Include="System.Text.Json" Version="8.0.5" />
+  </ItemGroup>
+
+</Project>
