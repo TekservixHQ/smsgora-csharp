@@ -42,7 +42,7 @@ namespace Tekservix.SmsGora
     /// </example>
     public class SmsGoraClient
     {
-        public const string Version = "1.0.0";
+        public const string Version = "1.0.1";
         public const string DefaultBaseUrl = "https://tekservix.com/smsgora/api/v1";
 
         private static readonly HttpClient SharedHttp = new HttpClient { Timeout = TimeSpan.FromSeconds(30) };

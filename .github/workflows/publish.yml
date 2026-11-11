@@ -1,0 +1,31 @@
+# Publishes to nuget.org with Trusted Publishing (short-lived key, no stored secret) when a version tag (v1.2.3) is pushed.
+name: publish
+
+on:
+  push:
+    tags: ['v*.*.*']
+
+jobs:
+  publish:
+    runs-on: ubuntu-latest
+    environment: nuget
+    permissions:
+      id-token: write
+      contents: read
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-dotnet@v4
+        with:
+          dotnet-version: '8.0.x'
+      - name: Check tag matches the package version
+        run: |
+          v=$(grep -oP '(?<=<Version>)[^<]+' src/SmsGora.csproj)
+          test "v$v" = "$GITHUB_REF_NAME" || { echo "tag $GITHUB_REF_NAME != version $v"; exit 1; }
+      - run: dotnet test tests/SmsGora.Tests.csproj -c Release
+      - run: dotnet pack src/SmsGora.csproj -c Release -o out
+      - name: Get a short-lived nuget.org key
+        id: login
+        uses: NuGet/login@v1
+        with:
+          user: tekservix
+      - run: dotnet nuget push "out/*.nupkg" --api-key "${{ steps.login.outputs.NUGET_API_KEY }}" --source https://api.nuget.org/v3/index.json --skip-duplicate
